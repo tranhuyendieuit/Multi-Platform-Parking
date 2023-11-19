@@ -43,7 +43,7 @@ const BottomTab = () => {
               <Feather
                 name="home"
                 size={30}
-                color={focused ? color.black : color.text.light}
+                color={focused ? color.primary : color.text.light}
               />
             </View>
           ),
@@ -58,7 +58,7 @@ const BottomTab = () => {
               <Ionicons
                 name="search"
                 size={30}
-                color={focused ? color.black : color.text.light}
+                color={focused ? color.primary : color.text.light}
               />
             </View>
           ),
@@ -71,12 +71,20 @@ const BottomTab = () => {
           tabBarIcon: ({ focused }) => (
             <View style={styles.addItem}>
               <Ionicons
-                name="add-circle-outline"
-                size={50}
+                name="qr-code"
+                size={35}
                 style={{
-                  alignSelf: 'flex-end',
+                  alignSelf: 'center',
+                  shadowColor: color.black,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 2,
+                  elevation: 2,
                 }}
-                color={focused ? color.black : color.text.light}
+                color={focused ? color.primary : color.primary}
               />
             </View>
           ),
@@ -91,7 +99,7 @@ const BottomTab = () => {
               <MaterialIcons
                 name="category"
                 size={30}
-                color={focused ? color.black : color.text.light}
+                color={focused ? color.primary : color.text.light}
               />
             </View>
           ),
@@ -106,7 +114,7 @@ const BottomTab = () => {
               <MaterialIcons
                 name="person-outline"
                 size={30}
-                color={focused ? color.black : color.text.light}
+                color={focused ? color.primary : color.text.light}
               />
             </View>
           ),
@@ -119,13 +127,12 @@ export default BottomTab;
 
 const styles = StyleSheet.create({
   addItem: {
-    top: Platform.OS === 'ios' ? -10 : -20,
-    width: '100%',
+    top: -15,
+    width: 60,
     height: 60,
-    padding: 5,
-    borderRadius: 30,
-    backgroundColor: '#F0F0F3',
-    display: 'flex',
+    padding: 10,
+    borderRadius: 35,
+    backgroundColor: color.white,
     justifyContent: 'center',
     alignContent: 'center',
   },
@@ -142,8 +149,10 @@ const styles = StyleSheet.create({
     shadowColor: color.black,
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
   },
   iconTop: {
     top: Platform.OS === 'ios' ? 10 : 0,
