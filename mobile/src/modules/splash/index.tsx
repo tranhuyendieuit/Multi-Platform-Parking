@@ -1,3 +1,4 @@
+import Logo from '@/components/Logo';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
 import React, { useEffect, useRef } from 'react';
@@ -25,11 +26,7 @@ const Splash: FCC<Props> = ({}) => {
           },
         ]}
       >
-        {/* <Image
-          style={styles.image}
-          source={require('@/assets/logo.png')}
-          alt="Logo Image"
-        /> */}
+        <Logo />
       </Animated.View>
       <View style={styles.bottom}>
         <Image
@@ -61,7 +58,8 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: 'center',
-    height: 171,
+    height: 100,
+    width: 250,
   },
   bottom: {
     position: 'absolute',
