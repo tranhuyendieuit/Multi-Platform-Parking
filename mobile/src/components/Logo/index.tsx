@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   image: {
     alignSelf: 'center',
     height: 100,
-    width: 250,
+    width: 240,
   },
 });
 export default Logo;

@@ -25,6 +25,7 @@ import * as SecureStore from 'expo-secure-store';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useAuthStore } from '@/store';
 import { toast } from '@backpackapp-io/react-native-toast';
+import Logo from '@/components/Logo';
 
 const Login: FCC<{}> = () => {
   const [isPasswordShown, setIsPasswordShown] = useToggle(true);
@@ -76,11 +77,7 @@ const Login: FCC<{}> = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={[styles.container, { paddingBottom: 0 }]}
       >
-        {/* <Image
-          style={styles.image}
-          source={require('@/assets/logo.png')}
-          alt="Logo Image"
-        /> */}
+        <Logo />
         <View style={styles.root}>
           <View style={styles.form}>
             <TextInput
@@ -232,10 +229,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: color.text.dark,
-  },
-  image: {
-    alignSelf: 'center',
-    height: 171,
   },
   under: {
     flex: 1,

@@ -1,5 +1,6 @@
 import { register } from '@/apis/auth/request';
 import Button from '@/components/Button';
+import Logo from '@/components/Logo';
 import TextInput from '@/components/TextField/TextInput';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
@@ -21,9 +22,6 @@ import { useMutation } from 'react-query';
 const Register: FCC<{}> = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(true);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(true);
-  const [active, setActive] = useState(false);
-  const [activePassword, setActivePassword] = useState(false);
-  const [activeConfirmPassword, setActiveConfirmPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -54,19 +52,12 @@ const Register: FCC<{}> = () => {
         extraScrollHeight={48}
         contentContainerStyle={[styles.container, { paddingBottom: 0 }]}
       >
-        {/* <Image
-          style={styles.image}
-          source={require('@/assets/logo.png')}
-          alt="Logo Image"
-        /> */}
+        <Logo />
         <View style={styles.root}>
           <View style={styles.form}>
             <TextInput
               label="Email"
               placeholder="Enter your email"
-              onFocus={() => setActive(true)}
-              onBlur={() => setActive(false)}
-              active={active}
               keyboardType="email-address"
               value={email}
               onChangeText={setEmail}
@@ -84,9 +75,6 @@ const Register: FCC<{}> = () => {
               label="Password"
               placeholder="Enter your password"
               secureTextEntry={isPasswordShown}
-              onFocus={() => setActivePassword(true)}
-              onBlur={() => setActivePassword(false)}
-              active={activePassword}
               value={password}
               onChangeText={setPassword}
               error={
@@ -112,9 +100,6 @@ const Register: FCC<{}> = () => {
               label="Confirm Password"
               placeholder="Enter your password"
               secureTextEntry={isConfirmPasswordShown}
-              onFocus={() => setActiveConfirmPassword(true)}
-              onBlur={() => setActiveConfirmPassword(false)}
-              active={activeConfirmPassword}
               value={passwordConfirm}
               onChangeText={setPasswordConfirm}
               error={
@@ -237,10 +222,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: color.text.dark,
-  },
-  image: {
-    alignSelf: 'center',
-    height: 171,
   },
   under: {
     flex: 1,
