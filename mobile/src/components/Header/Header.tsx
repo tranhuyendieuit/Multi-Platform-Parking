@@ -1,5 +1,5 @@
 import { color } from '@/constants/color';
-import { FontAwesome5 } from '@expo/vector-icons/';
+import { EvilIcons, Feather, FontAwesome5 } from '@expo/vector-icons/';
 import Icon from '@expo/vector-icons/Ionicons';
 import {
   HeaderOptions,
@@ -11,8 +11,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Button from '../Button';
 
 export interface HeaderProps extends HeaderOptions {
-  leftBtnVariant?: 'back' | 'notification';
-  rightBtnVariant?: 'search' | 'post';
+  leftBtnVariant?: 'back' | 'notification' | 'menu';
+  rightBtnVariant?: 'search' | 'post' | 'profile';
   onPressLeftButton?: () => void;
   onPressRightButton?: () => void;
   modal?: boolean;
@@ -33,7 +33,7 @@ const Header = React.memo(function Header({
   ...props
 }: HeaderProps) {
   const backgroundColor = color.white;
-  const elementColor = color.primary;
+  const elementColor = color.text.dark;
 
   let headerLeft = props.headerLeft;
   let headerRight = props.headerRight;
@@ -46,6 +46,13 @@ const Header = React.memo(function Header({
           size={29}
           color={elementColor}
         />
+      </TouchableOpacity>
+    );
+  }
+  if (!headerLeft && onPressLeftButton && leftBtnVariant === 'menu') {
+    headerLeft = () => (
+      <TouchableOpacity onPress={onPressLeftButton}>
+        <Feather name="menu" size={29} color={elementColor} />
       </TouchableOpacity>
     );
   }
@@ -70,12 +77,18 @@ const Header = React.memo(function Header({
     headerRight = () => (
       <Button
         onPress={onPressRightButton}
-        variants="text"
         style={{ padding: 0 }}
         textStyle={{ fontSize: 17, flexDirection: 'row' }}
       >
         Publish <Icon name="push-outline" size={16} color={elementColor} />
       </Button>
+    );
+  }
+  if (!headerRight && onPressRightButton && rightBtnVariant === 'profile') {
+    headerRight = () => (
+      <TouchableOpacity onPress={onPressRightButton} style={{ padding: 0 }}>
+        <EvilIcons name="user" size={32} color={elementColor} />
+      </TouchableOpacity>
     );
   }
 
@@ -126,7 +139,7 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   textHeader: {
-    fontSize: 17,
+    fontSize: 24,
     fontWeight: '600',
   },
   headerLeftContainer: {

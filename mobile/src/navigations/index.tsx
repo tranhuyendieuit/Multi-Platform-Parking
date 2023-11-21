@@ -12,6 +12,7 @@ import Animated, {
   FadeOutDown,
   Layout,
 } from 'react-native-reanimated';
+import IncomingRidesNavigation from './IncomingRides';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ const BottomTab = () => {
     >
       <Tab.Screen
         name="Dashboard"
-        component={Home}
+        component={IncomingRidesNavigation}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconTop}>

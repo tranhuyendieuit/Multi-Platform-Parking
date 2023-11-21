@@ -12,7 +12,7 @@ export const color = {
   text: {
     main: '#808080',
     light: '#3C3C4399',
-    dark: '#31373E',
+    dark: '#3B414B',
     grey: '#798C97',
   },
   white: '#FFFFFF',
