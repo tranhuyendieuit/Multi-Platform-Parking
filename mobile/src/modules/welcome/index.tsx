@@ -1,4 +1,5 @@
 import Button from '@/components/Button';
+import Logo from '@/components/Logo';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
 import { RootStackRoute } from '@/types/navigation';
@@ -11,10 +12,15 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Text,
   useWindowDimensions,
 } from 'react-native';
 
-const images = [];
+const images = [
+  'https://img.freepik.com/free-photo/top-view-electric-cars-parking-lot_23-2148972403.jpg?w=1380&t=st=1700583598~exp=1700584198~hmac=a71fa1f3ab8158578bb3e462280973ed2e4597864bf9eba7eff3db45ec29f730',
+  'https://img.freepik.com/premium-photo/cars-parked-road_10541-812.jpg?w=1060',
+  'https://img.freepik.com/premium-photo/cars-parking-lot-evening-light-sun_150893-219.jpg?w=1060',
+];
 
 const Welcome: FCC<{}> = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -29,6 +35,7 @@ const Welcome: FCC<{}> = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Logo />
       <View style={styles.scrollContainer}>
         <ScrollView
           horizontal={true}
@@ -79,6 +86,10 @@ const Welcome: FCC<{}> = () => {
           })}
         </View>
       </View>
+
+      <View style={styles.title}>
+        <Text>Welcome to Parking Lot</Text>
+      </View>
       <View style={{ flexDirection: 'column', gap: 10, bottom: 0 }}>
         <Button style={{ width: windowWidth - 50 }} onPress={onRegister}>
           Next
@@ -108,6 +119,7 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: -35
   },
   card: {
     flex: 1,
@@ -134,5 +146,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 171,
     top: 30,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: color.black,
   },
 });

@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 100,
     width: 240,
+    marginTop: 24,
   },
 });
 export default Logo;
