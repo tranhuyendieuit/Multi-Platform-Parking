@@ -27,6 +27,7 @@ import { useAuthStore } from '@/store';
 import { toast } from '@backpackapp-io/react-native-toast';
 import Logo from '@/components/Logo';
 
+
 const Login: FCC<{}> = () => {
   const [isPasswordShown, setIsPasswordShown] = useToggle(true);
   const [isChecked, setIsChecked] = useToggle(false);
