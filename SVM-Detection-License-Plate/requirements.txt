@@ -1,0 +1,13 @@
+flask==2.2.3
+flask_cors
+pymongo
+flask-crontab
+openpyxl
+flask-compress
+flask-restplus
+Flask-JWT-Extended
+opencv-python
+keras
+tensorflow>=1.15.0
+pytesseract
+Werkzeug==2.3.1
