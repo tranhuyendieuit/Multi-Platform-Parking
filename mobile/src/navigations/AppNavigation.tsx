@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import BottomTab from '.';
 import Welcome from '@/modules/welcome';
+import ScanQRCode from '@/modules/ScanQRCode';
 const AppNavigation: FCC = () => {
   const Stack = createNativeStackNavigator<RootStackRoute>();
   const { isLogin } = useAuthStore(state => state);
@@ -34,6 +35,13 @@ const AppNavigation: FCC = () => {
           </>
         ) : (
           <>
+            <Stack.Screen
+              name="scanQRCode"
+              component={ScanQRCode}
+              options={{
+                animationTypeForReplace: !isLogin ? 'pop' : 'push',
+              }}
+            />
             <Stack.Screen
               name="welcome"
               component={Welcome}

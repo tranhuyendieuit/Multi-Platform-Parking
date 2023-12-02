@@ -19,12 +19,17 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useMutation } from 'react-query';
 
-const Register: FCC<{}> = () => {
+interface RegistrationFormProps {
+  onSubmit: (formData: { user_name: string; password: string }) => void;
+}
+
+const Register: FCC<RegistrationFormProps> = ({ onSubmit }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(true);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(true);
-  const [email, setEmail] = useState('');
+  const [user_name, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  // const [usernameError, setUsernameError] = useState<string>('');
 
   const navigation =
     useNavigation<NavigationProp<RootStackRoute, 'register'>>();
@@ -34,12 +39,19 @@ const Register: FCC<{}> = () => {
   const handleRegister = () => {
     if (
       !password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/) ||
-      !email.match(/^\S+@\S+\.\S+$/) ||
+      !user_name ||
       passwordConfirm !== password
     ) {
+      // setUsernameError('Username is required');
       return;
     }
-    mutate({ fullname: email, email: email.toLowerCase(), password });
+    mutate({
+      fullname: user_name,
+      user_name: user_name.toLowerCase(),
+      password,
+    });
+    // setUsernameError('');
+    onSubmit({ user_name, password });
   };
 
   const onLogin = () => {
@@ -57,13 +69,11 @@ const Register: FCC<{}> = () => {
           <View style={styles.form}>
             <TextInput
               label="Email"
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-              error={
-                email.match(/^\S+@\S+\.\S+$/) ? '' : email && 'Email invalid'
-              }
+              placeholder="User Name "
+              keyboardType="default"
+              value={user_name}
+              onChangeText={setUserName}
+              // {usernameError ? <Text style={{ color: 'red' }}>{usernameError}</Text> : null}
               rightIcon={
                 <Entypo name="email" size={18} color={color.primary} />
               }

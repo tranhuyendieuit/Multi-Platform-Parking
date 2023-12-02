@@ -5,4 +5,5 @@ export type RootStackRoute = {
   home: undefined;
   welcome: undefined;
   incoming: undefined;
+  scanQRCode: undefined;
 };
