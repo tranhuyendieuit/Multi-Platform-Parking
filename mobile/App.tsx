@@ -1,5 +1,6 @@
 import AuthProvider from '@/context/Auth';
-import Splash from '@/modules/splash';
+// import Splash from '@/modules/splash';
+import ScanQRCode from '@/modules/ScanQRCode';
 import AppNavigation from '@/navigations/AppNavigation';
 import { Toasts } from '@backpackapp-io/react-native-toast';
 import React, { useEffect, useState } from 'react';
@@ -28,7 +29,7 @@ function App(): JSX.Element {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            {isLoading ? <Splash /> : <AppNavigation />}
+            {isLoading ? <ScanQRCode /> : <AppNavigation />}
           </AuthProvider>
         </QueryClientProvider>
         <Toasts />
