@@ -35,6 +35,7 @@ const AppNavigation: FCC = () => {
           </>
         ) : (
           <>
+            <Stack.Screen name="home" component={BottomTab} />
             <Stack.Screen
               name="scanQRCode"
               component={ScanQRCode}
