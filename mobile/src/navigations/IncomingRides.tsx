@@ -1,3 +1,4 @@
+import Home from '@/modules/home';
 import IncomingRides from '@/modules/incoming-rides';
 import { FCC } from '@/types';
 import { RootStackRoute } from '@/types/navigation';
@@ -8,11 +9,13 @@ const IncomingRidesNavigation: FCC = () => {
   const Stack = createNativeStackNavigator<RootStackRoute>();
   return (
     <Stack.Navigator
+      initialRouteName="home"
       screenOptions={{
         header: () => null,
         animation: 'fade',
       }}
     >
+      <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="incoming" component={IncomingRides} />
     </Stack.Navigator>
   );
