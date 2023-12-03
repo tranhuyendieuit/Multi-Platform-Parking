@@ -17,6 +17,10 @@
     ],
     "experiments": {
       "tsconfigPaths": true
-    }
+    },
+    "plugins": [
+      "expo-barcode-scanner",
+      "expo-camera"
+    ]
   }
 }

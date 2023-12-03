@@ -87,8 +87,8 @@ const Welcome: FCC<{}> = () => {
         </View>
       </View>
 
-      <View style={styles.title}>
-        <Text>Welcome to Parking Lot</Text>
+      <View>
+        <Text style={styles.title}>Welcome to Parking Lot</Text>
       </View>
       <View style={{ flexDirection: 'column', gap: 10, bottom: 0 }}>
         <Button style={{ width: windowWidth - 50 }} onPress={onRegister}>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -35
+    marginTop: -35,
   },
   card: {
     flex: 1,

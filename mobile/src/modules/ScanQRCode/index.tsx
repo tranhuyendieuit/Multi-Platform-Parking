@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import Header from '@/components/Header/Header';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
-// import { RootStackRoute } from '@/types/navigation';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
-import { RNCamera } from 'react-native-camera';
-// import { useNavigation, NavigationProp } from '@react-navigation/native';
-// import { BarcodeType } from 'react-native-camera/types';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Button from '@/components/Button';
-// import { NavigationContainer } from '@react-navigation/native';
+import Header from '@/components/Header/Header';
+import React, { useEffect, useState } from 'react';
 type Props = {};
 
 const ScanQRCode: FCC<Props> = ({}) => {
-  // const cameraRef = useRef<RNCamera | null>(null);
+  const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  // const handleBarCodeRead = (barcodes: Barcode[]) => {
-  //   if (barcodes.length > 0) {
-  //     const { data } = barcodes[0];
-  //     // Process the QR code data here
-  //     console.log(`Barcode value is ${data}`);
-  //     // Perform other actions as per your requirement
-  //   }
-  // };
+
+  useEffect(() => {
+    const getBarCodeScannerPermissions = async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    };
+
+    getBarCodeScannerPermissions();
+  }, []);
+
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     alert(`Scanned QR code with data: ${data}`);
@@ -40,14 +38,18 @@ const ScanQRCode: FCC<Props> = ({}) => {
         <Text>Align the QR code within the frame to scan.</Text>
       </View>
       <View style={styles.container}>
-        <RNCamera
+        <BarCodeScanner
           style={{ flex: 1 }}
-          onBarCodeRead={scanned ? undefined : handleBarCodeScanned}
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         >
           <Text style={{ textAlign: 'center', color: 'white' }}>
-            {scanned ? 'QR Code Scanned!' : 'Scanning...'}
+            {hasPermission
+              ? scanned
+                ? 'QR Code Scanned!'
+                : 'Scanning...'
+              : 'No access to camera'}
           </Text>
-        </RNCamera>
+        </BarCodeScanner>
         <Button style={styles.button}>Validate</Button>
       </View>
     </SafeAreaView>
