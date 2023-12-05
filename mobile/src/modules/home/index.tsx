@@ -8,11 +8,15 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CardOption from './components/CardOption';
 import HeaderHome from './components/HeaderHome';
+import { useNavigation } from '@react-navigation/native';
 
 const Home: FCC<{}> = () => {
+  const navigation = useNavigation<any>();
+  const onMenu = () => navigation.openDrawer();
+
   return (
     <SafeAreaView style={styles.root}>
-      <Header onPressLeftButton={() => {}} leftBtnVariant="menu" />
+      <Header onPressLeftButton={onMenu} leftBtnVariant="menu" />
       <HeaderHome />
       <View style={styles.container}>
         <CardOption
