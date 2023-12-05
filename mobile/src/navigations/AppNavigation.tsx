@@ -1,7 +1,9 @@
 import StatusBar from '@/components/StatusBar';
 import { color } from '@/constants/color';
+import ScanQRCode from '@/modules/ScanQRCode';
 import Login from '@/modules/login';
 import Register from '@/modules/register';
+import Welcome from '@/modules/welcome';
 import { useAuthStore } from '@/store';
 import { FCC } from '@/types';
 import { RootStackRoute } from '@/types/navigation';
@@ -9,12 +11,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import BottomTab from '.';
-import Welcome from '@/modules/welcome';
-import ScanQRCode from '@/modules/ScanQRCode';
+import DrawerNavigation from './DrawerNavigation';
+
 const AppNavigation: FCC = () => {
   const Stack = createNativeStackNavigator<RootStackRoute>();
   const { isLogin } = useAuthStore(state => state);
-
   return (
     <NavigationContainer>
       <StatusBar
@@ -35,7 +36,7 @@ const AppNavigation: FCC = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="home" component={BottomTab} />
+            <Stack.Screen name="home" component={DrawerNavigation} />
             <Stack.Screen
               name="scanQRCode"
               component={ScanQRCode}
