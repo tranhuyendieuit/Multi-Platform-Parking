@@ -57,13 +57,7 @@ const Login: FCC<{}> = () => {
   });
 
   const handleLogin = () => {
-    if (
-      !password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/) ||
-      !username.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]$/)
-    ) {
-      return;
-    }
-    mutate({ username: username.toLowerCase(), password });
+    mutate({ user_name: username, password });
   };
 
   const onRegister = () => {

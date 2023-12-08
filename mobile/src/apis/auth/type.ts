@@ -1,7 +1,6 @@
 export interface LoginResponse {
-  access_token: string;
-  refresh_token: string;
-  user: IUser;
+  data: string;
+  status: string;
 }
 
 export interface IUser {
@@ -16,7 +15,7 @@ export interface IUser {
 }
 
 export interface ILoginPayload {
-  username: string;
+  user_name: string;
   password: string;
 }
 

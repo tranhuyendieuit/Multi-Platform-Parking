@@ -9,11 +9,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CardOption from './components/CardOption';
 import HeaderHome from './components/HeaderHome';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '@/apis/auth';
 
 const Home: FCC<{}> = () => {
   const navigation = useNavigation<any>();
   const onMenu = () => navigation.openDrawer();
-
+  useUser();
   return (
     <SafeAreaView style={styles.root}>
       <Header onPressLeftButton={onMenu} leftBtnVariant="menu" />
