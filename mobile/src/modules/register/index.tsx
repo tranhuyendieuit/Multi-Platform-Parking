@@ -19,14 +19,14 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useMutation } from 'react-query';
 
-interface RegistrationFormProps {
-  onSubmit: (formData: { user_name: string; password: string }) => void;
-}
+// interface RegistrationFormProps {
+//   onSubmit: (formData: { username: string; password: string }) => void;
+// }
 
-const Register: FCC<RegistrationFormProps> = ({ onSubmit }) => {
+const Register: FCC<{}> = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(true);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(true);
-  const [user_name, setUserName] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   // const [usernameError, setUsernameError] = useState<string>('');
@@ -39,19 +39,19 @@ const Register: FCC<RegistrationFormProps> = ({ onSubmit }) => {
   const handleRegister = () => {
     if (
       !password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/) ||
-      !user_name ||
+      !username ||
       passwordConfirm !== password
     ) {
       // setUsernameError('Username is required');
       return;
     }
     mutate({
-      fullname: user_name,
-      user_name: user_name.toLowerCase(),
+      fullname: username,
+      username: username.toLowerCase(),
       password,
     });
+    // call api to login
     // setUsernameError('');
-    onSubmit({ user_name, password });
   };
 
   const onLogin = () => {
@@ -68,10 +68,10 @@ const Register: FCC<RegistrationFormProps> = ({ onSubmit }) => {
         <View style={styles.root}>
           <View style={styles.form}>
             <TextInput
-              label="Email"
+              label="User Name"
               placeholder="User Name "
               keyboardType="default"
-              value={user_name}
+              value={username}
               onChangeText={setUserName}
               // {usernameError ? <Text style={{ color: 'red' }}>{usernameError}</Text> : null}
               rightIcon={

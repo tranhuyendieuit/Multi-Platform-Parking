@@ -13,6 +13,7 @@ import {
 type Props = TextInputProps & {
   label?: string | JSX.Element;
   rightIcon?: JSX.Element;
+  active?: boolean;
   error?: string;
 };
 

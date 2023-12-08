@@ -11,7 +11,7 @@ request.interceptors.request.use(
     if (!config.headers.Authorization) {
       await SecureStore.getItemAsync('access_token')
         .then(token => {
-          config.headers.Authorization = `Bearer ${token}`;
+          config.headers.Authorization = token;
         })
         .catch(() => {
           config.headers.Authorization = '';

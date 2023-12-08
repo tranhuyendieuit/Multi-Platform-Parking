@@ -7,7 +7,7 @@ const AuthProvider: FCC<{}> = ({ children }) => {
   const { updateFullName, updateIsLogin } = useAuthStore(state => state);
   useUser({
     onSuccess: data => {
-      updateFullName(data?.data?.fullname ?? '');
+      updateFullName(data?.data?.email ?? '');
       updateIsLogin(!!data);
     },
     onError: async () => {

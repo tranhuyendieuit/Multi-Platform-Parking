@@ -1,53 +1,50 @@
+import Button from '@/components/Button';
 import TextInput from '@/components/TextField/TextInput';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
-import { Entypo } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import Button from '@/components/Button';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
+import React, { useState } from 'react';
 
+import { login } from '@/apis/auth/request';
+import Logo from '@/components/Logo';
+import { useToggle } from '@/hooks/useToggle';
+import { useAuthStore } from '@/store';
 import { RootStackRoute } from '@/types/navigation';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { toast } from '@backpackapp-io/react-native-toast';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 import {
   Image,
+  Pressable,
   SafeAreaView,
   StyleSheet,
-  View,
-  TouchableOpacity,
   Text,
-  Pressable,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { useToggle } from '@/hooks/useToggle';
-import { login } from '@/apis/auth/request';
-import { useMutation } from 'react-query';
-import * as SecureStore from 'expo-secure-store';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useAuthStore } from '@/store';
-import { toast } from '@backpackapp-io/react-native-toast';
-import Logo from '@/components/Logo';
-
+import { useMutation } from 'react-query';
 
 const Login: FCC<{}> = () => {
   const [isPasswordShown, setIsPasswordShown] = useToggle(true);
   const [isChecked, setIsChecked] = useToggle(false);
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation<NavigationProp<RootStackRoute, 'login'>>();
 
-  const { updateFullName, updateIsLogin } = useAuthStore(state => state);
+  const { updateIsLogin } = useAuthStore(state => state);
+
   const { mutate } = useMutation(login, {
     onSuccess: async data => {
-      await SecureStore.setItemAsync('access_token', data.access_token);
-      await SecureStore.setItemAsync('refresh_token', data.refresh_token);
-      updateFullName(data.user.fullname ?? '');
+      await SecureStore.setItemAsync('access_token', data.data);
       updateIsLogin(true);
       navigation.navigate('home');
     },
     onError: () => {
-      toast.error('Email or password incorect', {
+      toast.error('Username or password incorect', {
         duration: 3000,
         styles: {
           view: { backgroundColor: color.background.default },
@@ -62,11 +59,11 @@ const Login: FCC<{}> = () => {
   const handleLogin = () => {
     if (
       !password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/) ||
-      !email.match(/^\S+@\S+\.\S+$/)
+      !username.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]$/)
     ) {
       return;
     }
-    mutate({ username: email.toLowerCase(), password });
+    mutate({ username: username.toLowerCase(), password });
   };
 
   const onRegister = () => {
@@ -82,14 +79,16 @@ const Login: FCC<{}> = () => {
         <View style={styles.root}>
           <View style={styles.form}>
             <TextInput
-              label="Email"
-              keyboardType="email-address"
-              placeholder="Enter your email"
-              value={email}
-              onChangeText={setEmail}
-              error={
-                email.match(/^\S+@\S+\.\S+$/) ? '' : email && 'Email invalid'
-              }
+              label="User Name"
+              keyboardType="default"
+              placeholder="Enter your user name"
+              value={username}
+              onChangeText={setUsername}
+              // error={
+              //   username.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]$/)
+              //     ? ''
+              //     : username && 'User Name invalid'
+              // }
               rightIcon={
                 <Entypo name="email" size={18} color={color.primary} />
               }
@@ -103,11 +102,11 @@ const Login: FCC<{}> = () => {
               secureTextEntry={isPasswordShown}
               value={password}
               onChangeText={setPassword}
-              error={
-                password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/)
-                  ? ''
-                  : password && 'Password minimum 8 characters'
-              }
+              // error={
+              //   password.match(/^(?=.*[A-Za-z\d])[A-Za-z\d]{8,}$/)
+              //     ? ''
+              //     : password && 'Password minimum 8 characters'
+              // }
               rightIcon={
                 <TouchableOpacity onPress={setIsPasswordShown}>
                   <Ionicons

@@ -19,7 +19,7 @@
     "@react-navigation/drawer": "^6.6.6",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
-    "axios": "^1.5.1",
+    "axios": "^0.24.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "expo": "^49.0.8",
     "expo-barcode-scanner": "^12.7.0",

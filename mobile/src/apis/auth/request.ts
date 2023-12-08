@@ -3,7 +3,7 @@ import { ILoginPayload, IRegisterPayload } from './type';
 
 export const login = async (payload: ILoginPayload) => {
   const { data } = await request({
-    url: '/auth/login',
+    url: '/users/sign-in',
     method: 'POST',
     data: payload,
   });
@@ -12,7 +12,7 @@ export const login = async (payload: ILoginPayload) => {
 
 export const register = async (payload: IRegisterPayload) => {
   const { data } = await request({
-    url: '/auth/register',
+    url: '/users/sign-up',
     method: 'POST',
     data: payload,
   });
@@ -21,7 +21,7 @@ export const register = async (payload: IRegisterPayload) => {
 
 export const secret = async () => {
   const { data } = await request({
-    url: '/auth/secret',
+    url: '/users/my-profile',
     method: 'GET',
   });
   return data;

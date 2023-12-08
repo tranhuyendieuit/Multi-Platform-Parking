@@ -21,7 +21,7 @@ export interface ILoginPayload {
 }
 
 export interface IRegisterPayload {
-  user_name: string;
+  username: string;
   password: string;
   fullname: string;
 }
