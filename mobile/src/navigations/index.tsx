@@ -13,6 +13,7 @@ import Animated, {
   Layout,
 } from 'react-native-reanimated';
 import IncomingRidesNavigation from './IncomingRides';
+import ScanQRCode from '@/modules/ScanQRCode';
 
 const Tab = createBottomTabNavigator();
 
@@ -67,7 +68,7 @@ const BottomTab = () => {
       />
       <Tab.Screen
         name="Create"
-        component={Home}
+        component={ScanQRCode}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.addItem}>
