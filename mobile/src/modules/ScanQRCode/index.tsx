@@ -1,3 +1,4 @@
+import { checking } from '@/apis/auth';
 import Button from '@/components/Button';
 import Header from '@/components/Header/Header';
 import { color } from '@/constants/color';
@@ -7,11 +8,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { useMutation } from 'react-query';
 type Props = {};
 
 const ScanQRCode: FCC<Props> = ({}) => {
   const [scanned, setScanned] = useState(true);
   useHideBottomBar();
+
+  const { mutate } = useMutation(checking, {
+    onSuccess: data => {
+      console.log(data);
+    },
+    onError: e => {
+      console.log(e);
+    },
+  });
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -23,7 +34,7 @@ const ScanQRCode: FCC<Props> = ({}) => {
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`Scanned QR code with data: ${data}`);
+    mutate(data);
   };
   return (
     <>
@@ -75,8 +86,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 3,
     borderLeftWidth: 3,
     borderColor: color.primary,
-    top: 5,
-    left: 5,
+    top: 10,
+    left: 10,
     position: 'absolute',
   },
   topRight: {
@@ -86,8 +97,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 3,
     borderRightWidth: 3,
     borderColor: color.primary,
-    top: 5,
-    right: 5,
+    top: 10,
+    right: 10,
     position: 'absolute',
   },
   bottomLeft: {
@@ -97,8 +108,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderLeftWidth: 3,
     borderColor: color.primary,
-    bottom: 5,
-    left: 5,
+    bottom: 10,
+    left: 10,
     position: 'absolute',
   },
   bottomRight: {
@@ -108,8 +119,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderRightWidth: 3,
     borderColor: color.primary,
-    bottom: 5,
-    right: 5,
+    bottom: 10,
+    right: 10,
     position: 'absolute',
   },
   container: {

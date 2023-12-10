@@ -26,3 +26,11 @@ export const secret = async () => {
   });
   return data;
 };
+
+export const checking = async parkingAreaId => {
+  const { data } = await request({
+    url: `/checking/${parkingAreaId}`,
+    method: 'GET',
+  });
+  return data;
+};
