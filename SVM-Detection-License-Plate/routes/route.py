@@ -45,20 +45,8 @@ def extractRoute(app):
             ret, frame = cap.read()
             result = detect(frame)
             if result is not None:
-                return {
-                    "status": "OK",
-                    "result": result,
-                    "message": "Detected image successfully!",
-                }, 200
-            return {
-                "status": "FAILED",
-                "result": None,
-                "message": "Detected image failed!",
-            }, 400
+                return result
+            return None, 400
         except Exception as e:
             print(e)
-            return {
-                "status": "FAILED",
-                "result": e.__str__(),
-                "message": "Something went wrong!",
-            }, 500
+            return e.__str__(), 500
