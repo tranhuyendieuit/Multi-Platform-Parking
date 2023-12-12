@@ -69,7 +69,7 @@ const Login: FCC<{}> = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={[styles.container, { paddingBottom: 0 }]}
       >
-        <Logo />
+        <Logo style={{ marginTop: 48 }} />
         <View style={styles.root}>
           <View style={styles.form}>
             <TextInput

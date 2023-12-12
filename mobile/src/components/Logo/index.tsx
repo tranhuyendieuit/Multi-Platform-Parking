@@ -1,9 +1,9 @@
 import { FCC } from '@/types';
 import React from 'react';
-import { Image, ImageProps, StyleProp, StyleSheet } from 'react-native';
+import { Image, ImageStyle, StyleProp, StyleSheet } from 'react-native';
 
 type Props = {
-  style?: StyleProp<ImageProps>;
+  style?: StyleProp<ImageStyle>;
 };
 
 const Logo: FCC<Props> = ({ style, ...props }) => {
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 100,
     width: 240,
-    marginTop: 24,
   },
 });
 export default Logo;

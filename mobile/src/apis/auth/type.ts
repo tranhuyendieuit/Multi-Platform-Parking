@@ -20,7 +20,14 @@ export interface ILoginPayload {
 }
 
 export interface IRegisterPayload {
-  username: string;
+  user_name: string;
   password: string;
-  fullname: string;
+  email: string;
+  phone_number: string;
+  first_name: string;
+  last_name: string;
+  vehicle_brand: string;
+  vehicle_model: string;
+  register_date: string;
+  plate_number: string;
 }

@@ -1,5 +1,5 @@
 import { color } from '@/constants/color';
-import { EvilIcons, Feather, FontAwesome5 } from '@expo/vector-icons/';
+import { EvilIcons, Feather } from '@expo/vector-icons/';
 import Icon from '@expo/vector-icons/Ionicons';
 import {
   HeaderOptions,
@@ -8,7 +8,6 @@ import {
 } from '@react-navigation/elements';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Button from '../Button';
 
 export interface HeaderProps extends HeaderOptions {
   leftBtnVariant?: 'back' | 'notification' | 'menu';
@@ -41,11 +40,7 @@ const Header = React.memo(function Header({
   if (!headerLeft && onPressLeftButton && leftBtnVariant === 'back') {
     headerLeft = () => (
       <TouchableOpacity onPress={onPressLeftButton}>
-        <FontAwesome5
-          name="long-arrow-alt-left"
-          size={29}
-          color={elementColor}
-        />
+        <Feather name="arrow-left-circle" size={29} color={elementColor} />
       </TouchableOpacity>
     );
   }
@@ -73,17 +68,6 @@ const Header = React.memo(function Header({
     );
   }
 
-  if (!headerRight && onPressRightButton && rightBtnVariant === 'post') {
-    headerRight = () => (
-      <Button
-        onPress={onPressRightButton}
-        style={{ padding: 0 }}
-        textStyle={{ fontSize: 17, flexDirection: 'row' }}
-      >
-        Publish <Icon name="push-outline" size={16} color={elementColor} />
-      </Button>
-    );
-  }
   if (!headerRight && onPressRightButton && rightBtnVariant === 'profile') {
     headerRight = () => (
       <TouchableOpacity onPress={onPressRightButton} style={{ padding: 0 }}>
