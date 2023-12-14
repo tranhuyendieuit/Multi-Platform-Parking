@@ -4,14 +4,14 @@ import { FCC } from '@/types';
 import React from 'react';
 
 const AuthProvider: FCC<{}> = ({ children }) => {
-  const { updateFullName, updateIsLogin } = useAuthStore(state => state);
+  const { updateUser, updateIsLogin } = useAuthStore(state => state);
   useUser({
     onSuccess: data => {
-      updateFullName(data?.data?.email ?? '');
+      updateUser(data?.data);
       updateIsLogin(!!data);
     },
     onError: async () => {
-      updateFullName('');
+      updateUser(undefined);
       updateIsLogin(false);
     },
   });

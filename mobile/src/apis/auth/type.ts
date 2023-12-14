@@ -4,16 +4,27 @@ export interface LoginResponse {
 }
 
 export interface IUser {
-  id: number;
-  fullname: string;
   email: string;
-  avatar: string;
-  roles: string;
-  isVerify: boolean;
-  createdAt: string;
-  updatedAt: string;
+  first_name: string;
+  last_name: string;
+  parking_area: any;
+  phone_number: string;
+  role_code: string;
+  user_id: string;
+  user_name: string;
+  vehicles: Vehicle[];
 }
-
+export interface Vehicle {
+  accepted_parking_date: any;
+  plate_number: string;
+  register_date: string;
+  register_parking_date: any;
+  status: number;
+  username_owner: string;
+  vehicle_brand: string;
+  vehicle_id: string;
+  vehicle_model: string;
+}
 export interface ILoginPayload {
   user_name: string;
   password: string;

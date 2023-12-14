@@ -1,20 +1,49 @@
+import Button from '@/components/Button';
 import Header from '@/components/Header/Header';
 import { color } from '@/constants/color';
 import { FCC } from '@/types';
-import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import CardIncoming from './components/CardIncoming';
-import { useHideBottomBar } from '@/hooks/useHideBottomBar';
-import Button from '@/components/Button';
 
 const IncomingRides: FCC = () => {
-  useHideBottomBar();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation?.getParent().setOptions({
+      tabBarStyle: { display: 'none' },
+      tabBarVisible: false,
+    });
+    return () =>
+      navigation?.getParent().setOptions({
+        tabBarStyle: {
+          display: 'flex',
+          position: 'absolute',
+          bottom: 20,
+          left: 25,
+          right: 25,
+          elevation: 5,
+          backgroundColor: '#F0F0F3',
+          borderRadius: 30,
+          height: 60,
+          shadowColor: color.black,
+          shadowOffset: {
+            width: 0,
+            height: 4,
+          },
+          shadowOpacity: 0.4,
+          shadowRadius: 4,
+        },
+        tabBarVisible: undefined,
+      });
+  }, [navigation]);
   return (
     <SafeAreaView style={styles.root}>
       <Header
         title="Incoming Rides"
-        onPressLeftButton={() => {}}
-        leftBtnVariant="menu"
+        onPressLeftButton={() => navigation.canGoBack() && navigation.goBack()}
+        leftBtnVariant="back"
         onPressRightButton={() => {}}
         rightBtnVariant="profile"
       />

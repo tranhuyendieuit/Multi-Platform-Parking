@@ -2,6 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as React from 'react';
 import {
   Button,
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,8 +11,8 @@ import {
 } from 'react-native';
 import BottomTab from '.';
 
-import Logo from '@/components/Logo';
 import { color as constants } from '@/constants/color';
+import { useAuthStore } from '@/store';
 import { MaterialIcons } from '@expo/vector-icons';
 import {
   DrawerContentScrollView,
@@ -19,12 +20,34 @@ import {
 } from '@react-navigation/drawer';
 
 const CustomSidebarMenu = props => {
+  const { user, updateIsLogin, updateUser } = useAuthStore(state => state);
+  const onLogOut = () => {
+    updateIsLogin(false);
+    updateUser(undefined);
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Logo />
+      <View style={styles.root}>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352156-stock-illustration-default-placeholder-profile-icon.jpg',
+          }}
+          alt="Avatar"
+        />
+        <View style={styles.boxInfo}>
+          <Text style={styles.header}>
+            {user.first_name + ' ' + user.last_name}
+          </Text>
+          <Text style={styles.subheader}>
+            {user.vehicles.length > 0 && user.vehicles[0].plate_number}
+          </Text>
+          <Text style={styles.subheader}>{user.email}</Text>
+        </View>
+      </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <TouchableOpacity style={styles.customItem}>
+        <TouchableOpacity style={styles.customItem} onPress={onLogOut}>
           <MaterialIcons name="logout" size={24} color={constants.text.main} />
           <Text style={styles.itemText}>Logout</Text>
         </TouchableOpacity>
@@ -46,6 +69,34 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: constants.text.main,
+  },
+  root: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: 8,
+  },
+  avatar: {
+    alignSelf: 'center',
+    height: 70,
+    width: 70,
+    borderRadius: 35,
+  },
+  boxInfo: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 4,
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: constants.text.dark,
+  },
+  subheader: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: constants.text.light,
   },
 });
 

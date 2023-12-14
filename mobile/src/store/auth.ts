@@ -1,19 +1,20 @@
+import { IUser } from '@/apis/auth';
 import { create } from 'zustand';
 
 type State = {
-  fullname: string;
+  user?: IUser;
   isLogin: boolean;
 };
 
 type Action = {
-  updateFullName: (fullname: State['fullname']) => void;
+  updateUser: (user: State['user']) => void;
   updateIsLogin: (isLogin: State['isLogin']) => void;
 };
 
 const useAuthStore = create<State & Action>(set => ({
-  fullname: '',
+  user: undefined,
   isLogin: false,
-  updateFullName: fullname => set(() => ({ fullname: fullname })),
+  updateUser: user => set(() => ({ user: user })),
   updateIsLogin: isLogin => set(() => ({ isLogin: isLogin })),
 }));
 export default useAuthStore;

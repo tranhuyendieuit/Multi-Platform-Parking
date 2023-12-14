@@ -7,12 +7,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 type Props = {
   name: string;
   Icon: JSX.Element;
+  onPress: () => void;
 };
 
-const CardOption: FCC<Props> = ({ Icon, name }) => {
+const CardOption: FCC<Props> = ({ Icon, name, onPress }) => {
   return (
     <View style={styles.root}>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         {Icon && Icon}
         <Text style={styles.title}>{name}</Text>
       </TouchableOpacity>

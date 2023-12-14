@@ -5,6 +5,7 @@ import { color } from '@/constants/color';
 import { useHideBottomBar } from '@/hooks/useHideBottomBar';
 import { FCC } from '@/types';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
@@ -14,6 +15,7 @@ type Props = {};
 const ScanQRCode: FCC<Props> = ({}) => {
   const [scanned, setScanned] = useState(true);
   useHideBottomBar();
+  const navigation = useNavigation();
 
   const { mutate } = useMutation(checking, {
     onSuccess: data => {
@@ -36,11 +38,15 @@ const ScanQRCode: FCC<Props> = ({}) => {
     setScanned(true);
     mutate(data);
   };
+
+  const onBack = () => {
+    navigation.canGoBack() && navigation.goBack();
+  };
   return (
     <>
       <Header
-        onPressLeftButton={() => {}}
-        leftBtnVariant="menu"
+        onPressLeftButton={onBack}
+        leftBtnVariant="back"
         onPressRightButton={() => {}}
         rightBtnVariant="profile"
       />

@@ -1,23 +1,31 @@
 import { color } from '@/constants/color';
+import { useAuthStore } from '@/store';
 import { FCC } from '@/types';
 import { View } from 'moti';
 import React from 'react';
 import { Image, StyleSheet, Text } from 'react-native';
 
 const HeaderHome: FCC = () => {
+  const { user } = useAuthStore(state => state);
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Lekki Gardens Car Park A Security</Text>
       <View style={styles.root}>
         <Image
           style={styles.avatar}
-          source={require('@/assets/avatar.png')}
+          source={{
+            uri: 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352156-stock-illustration-default-placeholder-profile-icon.jpg',
+          }}
           alt="Avatar"
         />
         <View style={styles.boxInfo}>
-          <Text style={styles.header}>Mark Evans</Text>
-          <Text style={styles.subheader}>Security Guard</Text>
-          <Text style={styles.subheader}>Badge number - SG911</Text>
+          <Text style={styles.header}>
+            {user.first_name + ' ' + user.last_name}
+          </Text>
+          <Text style={styles.subheader}>{user.email}</Text>
+          <Text style={styles.subheader}>
+            {user.vehicles.length > 0 && user.vehicles[0].plate_number}
+          </Text>
         </View>
       </View>
     </View>

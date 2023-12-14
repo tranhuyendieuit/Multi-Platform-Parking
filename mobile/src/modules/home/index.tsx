@@ -29,18 +29,22 @@ const Home: FCC<{}> = () => {
             />
           }
           name="Notifications"
+          onPress={() => {}}
         />
         <CardOption
           Icon={<EvilIcons size={64} name="user" color={color.primary} />}
           name="View Incoming RIdes"
+          onPress={() => navigation.navigate('incoming')}
         />
         <CardOption
           Icon={<Foundation size={48} name="web" color={color.primary} />}
           name="Parking History"
+          onPress={() => {}}
         />
         <CardOption
           Icon={<AntDesign size={48} name="contacts" color={color.primary} />}
           name="Contact Police"
+          onPress={() => {}}
         />
       </View>
     </SafeAreaView>
