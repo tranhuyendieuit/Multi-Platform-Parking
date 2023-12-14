@@ -41,4 +41,5 @@ export interface IRegisterPayload {
   vehicle_model: string;
   register_date: string;
   plate_number: string;
+  is_vehicle_owner: boolean;
 }

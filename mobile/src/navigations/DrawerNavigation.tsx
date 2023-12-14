@@ -18,10 +18,12 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
+import * as SecureStore from 'expo-secure-store';
 
 const CustomSidebarMenu = props => {
   const { user, updateIsLogin, updateUser } = useAuthStore(state => state);
-  const onLogOut = () => {
+  const onLogOut = async () => {
+    await SecureStore.deleteItemAsync('access_token');
     updateIsLogin(false);
     updateUser(undefined);
   };

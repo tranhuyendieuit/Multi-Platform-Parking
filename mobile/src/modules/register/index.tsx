@@ -7,6 +7,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useMutation } from 'react-query';
 import StepOne from './components/StepOne';
 import StepTwo from './components/StepTwo';
+import { toast } from '@backpackapp-io/react-native-toast';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackRoute } from '@/types/navigation';
 
 enum STEP {
   ONE = 1,
@@ -23,17 +26,51 @@ const defaultValue = {
   last_name: '',
   vehicle_brand: '',
   vehicle_model: '',
-  register_date: new Date().toISOString(),
   plate_number: '',
+  is_vehicle_owner: true,
 };
 
 const Register: FCC<{}> = () => {
   const [step, setStep] = useState<STEP>(STEP.ONE);
   const [form, setForm] = useState(defaultValue);
-  const { mutate } = useMutation(register);
+  const navigation =
+    useNavigation<NavigationProp<RootStackRoute, 'register'>>();
+
+  const { mutate } = useMutation(register, {
+    onSuccess: () => {
+      toast.success('Register successfully!', {
+        duration: 3000,
+        styles: {
+          view: { backgroundColor: color.background.default },
+          text: {
+            color: color.success.main,
+          },
+        },
+      });
+      navigation.navigate('login');
+    },
+    onError: () => {
+      toast.error('Register failed!', {
+        duration: 3000,
+        styles: {
+          view: { backgroundColor: color.background.default },
+          text: {
+            color: color.error.main,
+          },
+        },
+      });
+    },
+  });
 
   const handleRegister = () => {
-    mutate(form);
+    mutate({
+      ...form,
+      register_date: `${
+        new Date().getDay() < 10
+          ? `0${new Date().getDay()}`
+          : new Date().getDay()
+      }/${new Date().getMonth()}/${new Date().getFullYear()}`,
+    });
   };
 
   return (

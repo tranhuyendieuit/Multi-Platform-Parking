@@ -6,6 +6,7 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 
+import { useUser } from '@/apis/auth';
 import { login } from '@/apis/auth/request';
 import Logo from '@/components/Logo';
 import { useToggle } from '@/hooks/useToggle';
@@ -35,13 +36,22 @@ const Login: FCC<{}> = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackRoute, 'login'>>();
 
-  const { updateIsLogin } = useAuthStore(state => state);
-
+  const { updateIsLogin, updateUser } = useAuthStore(state => state);
+  const { refetch } = useUser({
+    onSuccess: data => {
+      updateUser(data?.data);
+      updateIsLogin(!!data);
+    },
+    onError: async () => {
+      updateUser(undefined);
+      updateIsLogin(false);
+    },
+    enabled: false,
+  });
   const { mutate } = useMutation(login, {
     onSuccess: async data => {
       await SecureStore.setItemAsync('access_token', data.data);
-      updateIsLogin(true);
-      navigation.navigate('home');
+      refetch();
     },
     onError: () => {
       toast.error('Username or password incorect', {
