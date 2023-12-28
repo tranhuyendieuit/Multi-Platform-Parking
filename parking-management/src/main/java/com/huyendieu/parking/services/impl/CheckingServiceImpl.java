@@ -65,6 +65,9 @@ public class CheckingServiceImpl extends BaseService implements CheckingService 
     if (!UserUtils.isVehicleRole(authentication)) {
       throw new ParkingException("authentication don't exist!");
     }
+    String username = UserUtils.getUserName(authentication);
+    List<ParkingHistoryEntity> parkingHistoryEntities = parkingHistoryRepository.findUserByNotCheckOut(username,
+        new ObjectId(parkingAreaId));
     String LicensePlate = getLicensePlate();
     if (LicensePlate.isEmpty()
         || LicensePlate.contains("list index out of range")) {
@@ -78,11 +81,10 @@ public class CheckingServiceImpl extends BaseService implements CheckingService 
           .checkType(Constant.CheckParkingCode.CHECK_OUT.getCode())
           .message(Constant.CheckParkingCode.CHECK_OUT.getValue())
           .plate(LicensePlate)
+          .userPlate(getPlateNumber(parkingHistoryEntities.get(0)))
           .build();
     }
-    String username = UserUtils.getUserName(authentication);
-    List<ParkingHistoryEntity> parkingHistoryEntities = parkingHistoryRepository.findUserByNotCheckOut(username,
-        new ObjectId(parkingAreaId));
+
     if (!CollectionUtils.isEmpty(parkingHistoryEntities)) {
       ParkingHistoryEntity parkingHistoryEntity = checkOut(parkingHistoryEntities.get(0));
       checkingNotification(parkingAreaId, getPlateNumber(parkingHistoryEntity),
@@ -92,6 +94,7 @@ public class CheckingServiceImpl extends BaseService implements CheckingService 
           .checkType(Constant.CheckParkingCode.CHECK_OUT.getCode())
           .message(Constant.CheckParkingCode.CHECK_OUT.getValue())
           .plate(LicensePlate)
+          .userPlate(getPlateNumber(parkingHistoryEntity))
           .build();
     } else {
       if (!isAvailableCapacity(parkingAreaId)) {
@@ -107,6 +110,7 @@ public class CheckingServiceImpl extends BaseService implements CheckingService 
           .checkType(Constant.CheckParkingCode.CHECK_IN.getCode())
           .message(Constant.CheckParkingCode.CHECK_IN.getValue())
           .plate(LicensePlate)
+          .userPlate(getPlateNumber(parkingHistoryEntity))
           .build();
     }
   }

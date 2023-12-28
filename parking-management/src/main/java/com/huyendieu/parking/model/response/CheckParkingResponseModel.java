@@ -18,4 +18,7 @@ public class CheckParkingResponseModel {
 
     @JsonProperty("plate")
     private String plate;
+
+    @JsonProperty("user_plate")
+    private String userPlate;
 }

@@ -126,6 +126,16 @@ def load_model(path):
     return model
 
 
+def save_model(model, path, verbose=0):
+    path = splitext(path)[0]
+    model_json = model.to_json()
+    with open("%s.json" % path, "w") as json_file:
+        json_file.write(model_json)
+    model.save_weights("%s.h5" % path)
+    if verbose:
+        print(f"Saved to %{path}")
+
+
 def find_T_matrix(pts, t_pts):
     A = np.zeros((8, 9))
     for i in range(0, 4):
@@ -239,3 +249,13 @@ def detect_lp(model, I, max_dim, lp_threshold):
     L, TLp, lp_type = reconstruct(I, Iresized, Yr, lp_threshold)
 
     return L, TLp, lp_type
+
+
+def readShapes(path, obj_type=Shape):
+    shapes = []
+    with open(path) as fp:
+        for line in fp:
+            shape = obj_type()
+            shape.read(line)
+            shapes.append(shape)
+    return shapes
