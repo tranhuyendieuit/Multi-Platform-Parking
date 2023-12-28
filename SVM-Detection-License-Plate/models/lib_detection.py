@@ -251,6 +251,31 @@ def detect_lp(model, I, max_dim, lp_threshold):
     return L, TLp, lp_type
 
 
+class Shape:
+    def __init__(self, pts=np.zeros((2, 0)), max_sides=4, text=""):
+        self.pts = pts
+        self.max_sides = max_sides
+        self.text = text
+
+    def isValid(self):
+        return self.pts.shape[1] > 2
+
+    def write(self, fp):
+        fp.write("%d," % self.pts.shape[1])
+        ptsarray = self.pts.flatten()
+        fp.write("".join([("%f," % value) for value in ptsarray]))
+        fp.write("%s," % self.text)
+        fp.write("\n")
+
+    def read(self, line):
+        data = line.strip().split(",")
+        ss = int(data[0])
+        values = data[1 : (ss * 2 + 1)]
+        text = data[(ss * 2 + 1)] if len(data) >= (ss * 2 + 2) else ""
+        self.pts = np.array([float(value) for value in values]).reshape((2, ss))
+        self.text = text
+
+
 def readShapes(path, obj_type=Shape):
     shapes = []
     with open(path) as fp:
